@@ -17,4 +17,6 @@
 
 //FRAMEWORK
 #include "Singleton.h"
+#include "InputMgr.h"
 #include "Framework.h"
+
