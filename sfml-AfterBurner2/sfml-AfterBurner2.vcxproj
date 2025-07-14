@@ -142,19 +142,22 @@
     <ClCompile Include="Framework\GameObject.cpp" />
     <ClCompile Include="InputMgr.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SpriteGo.cpp" />
+    <ClCompile Include="Framework\SpriteGo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Tomcat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Framework.h" />
     <ClInclude Include="Framework\Singleton.h" />
     <ClInclude Include="Framework\GameObject.h" />
     <ClInclude Include="InputMgr.h" />
-    <ClInclude Include="SpriteGo.h" />
+    <ClInclude Include="Framework\SpriteGo.h" />
+    <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tomcat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

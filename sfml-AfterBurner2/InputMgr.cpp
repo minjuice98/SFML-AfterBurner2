@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "InputMgr.h"
 
-//static std::vector<bool> heldKeys;
-//static std::vector<bool> upKeys;
-//static std::vector<bool> downKeys;
+std::vector<bool> InputMgr::heldKeys;
+std::vector<bool> InputMgr::upKeys;
+std::vector<bool> InputMgr::downKeys;
 
 void InputMgr::Init()
 {

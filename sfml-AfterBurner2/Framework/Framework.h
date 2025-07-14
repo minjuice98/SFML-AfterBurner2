@@ -1,6 +1,6 @@
 #pragma once
-#include "Singleton.h"
 #include "stdafx.h"
+#include "Singleton.h"
 
 class Framework : public Singleton<Framework>
 {
@@ -22,7 +22,7 @@ protected:
 	//게임 세계 논리적 경과 시간, time+=deltaTime
 	float deltaTime = 0.f;
 	//en 두 프레임 사이 조정된 간격
-	
+
 	float realTime = 0.f; //실제시간
 	//Clock 시작 이후 총 경과된 시간 asSecond() 등으로 얻음
 	float realDeltaTime = 0.f;
@@ -30,7 +30,7 @@ protected:
 
 	bool pause = false; //일시정지 시 사용
 
-	//리소스 관리
+	//리소스 관리, ResourceMgr에서 여러개 로드
 	std::vector<std::string> texIds;
 	std::vector<std::string> fontIds;
 	std::vector<std::string> soundIds;
@@ -62,5 +62,6 @@ public:
 	virtual void Do();
 	virtual void Release();
 };
+
 #define FRAMEWORK (Framework::Instance())
 //호출하는 순간 Framework 싱글톤 객체 생성
