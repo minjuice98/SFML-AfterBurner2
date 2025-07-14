@@ -4,7 +4,7 @@ class Tomcat :public GameObject
 {
 protected:
 	sf::Sprite tomcat;
-	std::string texId = "graphics/player.png";
+	std::string texId = "graphics/tomcat.png";
 
 public:
 	Tomcat(const std::string& name="");

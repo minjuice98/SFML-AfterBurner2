@@ -6,6 +6,8 @@ void Framework::Init(int w, int h, const std::string& t)
 {
 	window.create(sf::VideoMode(w, h), t);
 	//여러 개 로드하는 경우 프레임웍에서 로드
+	
+	texIds.push_back("graphics/tomcat.png");
 	TEXTURE_MGR.Load(texIds);
 
 }

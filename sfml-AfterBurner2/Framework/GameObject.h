@@ -47,4 +47,3 @@ public:
 	virtual void Draw(sf::RenderWindow& window) = 0;
 
 };
-
