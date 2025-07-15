@@ -29,6 +29,9 @@ public:
 	const std::string& GetName() const { return name; }
 	void SetName(const std::string& n) { name = n; }
 
+	bool GetActive() const { return active; }
+	virtual void SetActive(bool a) { active = a; }
+
 	const sf::Vector2f GetPosition() const { return position; }
 	//원본을 가져오지만, 수정 불가능
 	virtual void SetPosition(const sf::Vector2f& pos) { position = pos; }

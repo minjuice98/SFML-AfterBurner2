@@ -4,7 +4,8 @@ class Scene
 protected:
 	std::list<GameObject*> gameObjects;
 	std::list<GameObject*> objectsToAdd;
-	std::list<GameObject*> objectsToRemove; 	//게임 루프 중 오브젝트를 바로 삭제하지 않고, remove 리스트에 넣어두고 프레임 끝에서 한번에 처리
+	std::list<GameObject*> objectsToRemove;
+	//게임 루프 중 오브젝트를 바로 삭제하지 않고, remove 리스트에 넣어두고 프레임 끝에서 한번에 처리
 
 	std::vector<std::string> texIds;
 	std::vector<std::string> fontIds;
@@ -13,7 +14,7 @@ protected:
 	sf::View worldView;
 	sf::View uiView;
 
-	void ApplyPendingChanges();
+	void ApplyPendingChanges(); //CRUD 일괄적용
 
 public:
 	//씬아이디, 씬아이디를 이용한 생성자

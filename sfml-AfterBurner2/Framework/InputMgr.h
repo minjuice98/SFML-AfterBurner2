@@ -1,4 +1,23 @@
 #pragma once
+
+//키 매핑은 내부에서 하고, 게임 로직은 방향만 신경쓰도록 축 적용
+enum class Axis
+{
+	Horizontal,
+	Vertical,
+};
+
+struct AxisInfo
+{
+	//축 (-1.0 ~ 1.0)
+	Axis axis;
+	std::vector<int> positives;
+	std::vector<int> negatives;
+
+	float sensi = 10.f; //감도
+	float value = 0.f;
+};
+
 class InputMgr
 {
 protected:
