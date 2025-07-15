@@ -33,6 +33,7 @@ void Scene::Release() //끝, 리소스 해제
 void Scene::Enter() //씬 입장, 리소스 로딩, 리셋
 {
 	TEXTURE_MGR.Load(texIds);
+	FONT_MGR.Load(texIds);
 
 	for (auto obj : gameObjects)
 	{
@@ -50,6 +51,7 @@ void Scene::Exit() //씬 퇴장, 리소스 언로드
 	ApplyPendingChanges();
 
 	TEXTURE_MGR.Unload(texIds);
+	FONT_MGR.Unload(fontIds);
 }
 
 void Scene::Update(float dt) //프레임마다 업데이트 할 내용
@@ -67,9 +69,16 @@ void Scene::Draw(sf::RenderWindow& window)
 {
 	std::list<GameObject*> sortedObjects(gameObjects);
 	sortedObjects.sort(DrawOrderComparer());
+	bool isUiView = false;
 
 	for (auto obj : sortedObjects)
 	{
+		if (obj->sortingLayer >= SortingLayers::UI && !isUiView) //아직 UIview로 접근 안 한 경우
+		{
+			window.setView(uiView); //worldView에서 그리다가 uiView로 전환
+			isUiView = true;
+		}
+
 		if (obj->GetActive())
 		{
 			obj->Draw(window);
@@ -134,11 +143,17 @@ void Scene::ApplyPendingChanges()
 	objectsToRemove.clear();
 }
 
-sf::Vector2f Scene::ScreenToWorld(sf::Vector2i screenPos)
-{
-	return FRAMEWORK.GetWindow().mapPixelToCoords(screenPos, worldView);
+sf::Vector2f Scene::ScreenToWorld(sf::Vector2i screenPos)//화면 픽셀 좌표를 월드 뷰 기준으로 전환
+{//sf::Vector2f mapPixelToCoords(const sf::Vector2i& pixel, const sf::View& view) const;
+
+	return FRAMEWORK.GetWindow().mapPixelToCoords(screenPos, worldView); //(윈도우 기준 화면 픽셀 좌표, 좌표계)
 }
 sf::Vector2f Scene::ScreenToUi(sf::Vector2i screenPos)
 {
-	return sf::Vector2f();
+	return FRAMEWORK.GetWindow().mapPixelToCoords(screenPos, uiView);
 }
+
+// ex)
+// screenPos: 화면의 정확한 한가운데
+// worldView: 플레이어 따라 움직이며 스크롤, worldView.setSize(1920,1080), worldView.setCenter(player->GetPositon())
+// uiView: 화면 고정, uiView.setSize((float)windowSize.x, (float)windowSize.y);,uiView.setCenter(windowSize.x * 0.5f, windowSize.y * 0.5f);

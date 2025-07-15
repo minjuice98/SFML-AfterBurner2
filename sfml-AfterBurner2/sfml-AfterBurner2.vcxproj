@@ -144,6 +144,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Framework\SpriteGo.cpp" />
     <ClCompile Include="Framework\Scene.cpp" />
+    <ClCompile Include="Framework\SceneMgr.cpp" />
+    <ClCompile Include="SceneGame.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -160,6 +163,9 @@
     <ClInclude Include="Framework\SpriteGo.h" />
     <ClInclude Include="Framework\ResourceMgr.h" />
     <ClInclude Include="Framework\Scene.h" />
+    <ClInclude Include="Framework\SceneMgr.h" />
+    <ClInclude Include="SceneGame.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tomcat.h" />
     <ClInclude Include="Framework\Utils.h" />

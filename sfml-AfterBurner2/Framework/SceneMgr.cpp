@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "SceneMgr.h"
+#include "SceneTitle.h"
+#include "SceneGame.h"
 
 void SceneMgr::Init()
 {
-	//scenes.push_back(); //vector 컨테이너
+	scenes.push_back(new SceneTitle(SceneIds::Title)); //vector 컨테이너
+	scenes.push_back(new SceneGame(SceneIds::Game)); //vector 컨테이너
 
 	for (auto scene : scenes)
 	{
@@ -27,7 +30,7 @@ void SceneMgr::Release()
 	scenes.clear();
 }
 
-void SceneMgr::ChangeSceen(SceneIds id)
+void SceneMgr::ChangeScene(SceneIds id)
 {
 	nextScene = id;
 }

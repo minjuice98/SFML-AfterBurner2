@@ -41,9 +41,12 @@ protected:
 public:
 	bool Load(const std::string& id)
 	{
+		std::cout << "[FONT_MGR] Trying to load: " << id << std::endl;
+
 		auto it = resources.find(id); //유무 검사, 이터레이터
 		if (it != resources.end()) //end()!=일 경우 존재
 		{
+			std::cout << "[ResourceMgr] Already loaded: " << id << std::endl;
 			return false;
 		}
 
@@ -52,10 +55,12 @@ public:
 		bool success = res->loadFromFile(id); //로드
 		if (!success) //로드 실패 시 
 		{
+			std::cerr << "[ResourceMgr] Failed to load: " << id << std::endl;
 			delete res; //메모리 해제
 			return false;
 		}
 
+		std::cout << "[ResourceMgr] Successfully loaded: " << id << std::endl;
 		resources.insert({ id,res }); //성공 시 맵 등록
 		return true;
 	}

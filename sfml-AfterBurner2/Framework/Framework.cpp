@@ -1,16 +1,23 @@
 #include "stdafx.h"
 #include "Framework.h"
 #include "Tomcat.h"
+#include <direct.h>  // _getcwd()
 
 void Framework::Init(int w, int h, const std::string& t)
 {
 	window.create(sf::VideoMode(w, h), t);
 
-	InputMgr::Init();
+	char buffer[256];
+	_getcwd(buffer, 256);
+	std::cout << "[DEBUG] Working dir: " << buffer << std::endl;
 
-	texIds.push_back("graphics/tomcat.png");
+	fontIds.push_back("fonts/KOMIKAP_.ttf");
+
+	FONT_MGR.Load(fontIds);
 	TEXTURE_MGR.Load(texIds);
 
+	InputMgr::Init();
+	SCENE_MGR.Init();
 }
 
 void Framework::Do()
@@ -39,10 +46,10 @@ void Framework::Do()
 			InputMgr::UpdateEvent(event);
 		}
 		//메인루프에서 업데이트해야 할 목록
-		tomcat.Update(deltaTime);
+		SCENE_MGR.Update(deltaTime);
 		//씬 검사하고, 그리기 
 		window.clear();
-		tomcat.Draw(window);
+		SCENE_MGR.Draw(window);
 		window.display();
 	}
 }
@@ -50,4 +57,7 @@ void Framework::Do()
 void Framework::Release()
 {
 	//리소스 정리
+	SCENE_MGR.Release();
+	FONT_MGR.Unload(fontIds);
+	TEXTURE_MGR.Unload(texIds);
 }
