@@ -1,11 +1,8 @@
 #pragma once
-
 //싱글톤 디자인 패턴으로 전역에서 사용 예정
-
 template <typename T> //임의의 타입으로 생성할 수 있도록 도와줌
 class Singleton
 {
-
 protected:
 	Singleton() = default; 
 	//컴파일러가 자동으로 생성하는 기본생성자 사용

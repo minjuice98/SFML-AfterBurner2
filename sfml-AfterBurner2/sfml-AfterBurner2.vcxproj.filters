@@ -30,10 +30,13 @@
     <ClCompile Include="Framework\SpriteGo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="InputMgr.cpp">
+    <ClCompile Include="Framework\InputMgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Tomcat.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Scene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,13 +56,19 @@
     <ClInclude Include="Framework\SpriteGo.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="InputMgr.h">
+    <ClInclude Include="Framework\InputMgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Tomcat.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\ResourceMgr.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Defines.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

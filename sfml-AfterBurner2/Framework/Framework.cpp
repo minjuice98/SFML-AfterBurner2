@@ -5,8 +5,9 @@
 void Framework::Init(int w, int h, const std::string& t)
 {
 	window.create(sf::VideoMode(w, h), t);
-	//여러 개 로드하는 경우 프레임웍에서 로드
-	
+
+	InputMgr::Init();
+
 	texIds.push_back("graphics/tomcat.png");
 	TEXTURE_MGR.Load(texIds);
 
@@ -38,6 +39,7 @@ void Framework::Do()
 			InputMgr::UpdateEvent(event);
 		}
 		//메인루프에서 업데이트해야 할 목록
+		tomcat.Update(deltaTime);
 		//씬 검사하고, 그리기 
 		window.clear();
 		tomcat.Draw(window);

@@ -62,6 +62,5 @@ public:
 	virtual void Do();
 	virtual void Release();
 };
-
 #define FRAMEWORK (Framework::Instance())
 //호출하는 순간 Framework 싱글톤 객체 생성

@@ -1,12 +1,5 @@
 #pragma once
 #include "Singleton.h"
-#include <iostream>
-#include <fstream>
-#ifdef _WIN32
-#include <direct.h> // _getcwd (윈도우)
-#else
-#include <unistd.h> // getcwd (리눅스/맥)
-#endif
 
 //문자열 ID로 저장 및 재사용 가능하도록 관리
 //template <typename T>

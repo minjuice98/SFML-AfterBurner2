@@ -16,7 +16,12 @@ protected:
 	sf::Vector2f origin = {0.f,0.f}; //좌상단
 
 public:
-	//레이어,bound 추후 추가
+	//layer 추가
+	//렌더링 순서(그려지는 순서)제어를 위해 gameObject에서 관리
+	SortingLayers sortingLayer = SortingLayers::Default;
+	int sortingOrder = 0; //업계 표준
+	
+	//bound 추후 추가
 
 	GameObject(const std::string& n="");
 	virtual ~GameObject();
@@ -45,5 +50,4 @@ public:
 	//behavior
 	virtual void Update(float dt) = 0;
 	virtual void Draw(sf::RenderWindow& window) = 0;
-
 };

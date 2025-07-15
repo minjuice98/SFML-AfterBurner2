@@ -1,6 +1,24 @@
 #include "stdafx.h"
 #include "InputMgr.h"
 
+//키 매핑은 내부에서 하고, 게임 로직은 방향만 신경쓰도록 축 적용
+enum class Axis
+{
+	Horizontal,
+	Vertical,
+};
+
+struct AxisInfo
+{
+	//축 (-1.0 ~ 1.0)
+	Axis axis;
+	std::vector<int> positives;
+	std::vector<int> negatives;
+
+	float sensi = 10.f; //감도
+	//float value= 기체 조종 구역 구현 먼저!
+};
+
 std::vector<bool> InputMgr::heldKeys;
 std::vector<bool> InputMgr::upKeys;
 std::vector<bool> InputMgr::downKeys;
@@ -20,7 +38,8 @@ void InputMgr::Clear()
 	//std::fill(heldKeys.begin(), heldKeys.end(), false);
 }
 void InputMgr::UpdateEvent(const sf::Event& ev) 
-{	//press, release
+{	
+	//press, release
 	switch (ev.type)
 	{
 	case sf::Event::KeyPressed:
@@ -31,6 +50,7 @@ void InputMgr::UpdateEvent(const sf::Event& ev)
 		}
 		break;
 	case sf::Event::KeyReleased:
+		heldKeys[ev.key.code] = false;
 		downKeys[ev.key.code] = false;
 		upKeys[ev.key.code] = true;
 		break;
