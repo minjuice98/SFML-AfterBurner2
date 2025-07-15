@@ -149,6 +149,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Tomcat.cpp" />
+    <ClCompile Include="Framework\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Defines.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tomcat.h" />
+    <ClInclude Include="Framework\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

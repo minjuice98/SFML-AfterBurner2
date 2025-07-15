@@ -5,6 +5,11 @@ class Tomcat :public GameObject
 protected:
 	sf::Sprite tomcat;
 	std::string texId = "graphics/tomcat.png";
+
+	float minX;
+	float maxX;
+	float minY;
+	float maxY;
 public:
 	Tomcat(const std::string& name="");
 	~Tomcat() override = default;

@@ -7,7 +7,7 @@
 //ResourceMgr<sf::Font>::Instance()
 //ResourceMgr<sf::SoundBuffer>::Instance()
 
-//싱글톤 클래스에게 자기 자신을 넘겨줌
+//싱글톤 클래스에게 자기 자신을 넘겨
 //템플릿을 포함하여 어떤 클래스든 자기 자신을 Singleton<T>에 넘기기만 하면
 //싱글톤화 가능
 template <typename T>
