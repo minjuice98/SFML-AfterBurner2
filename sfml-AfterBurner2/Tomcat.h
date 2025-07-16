@@ -6,6 +6,10 @@ class Tomcat : public GameObject
 protected:
     sf::Sprite tomcat;
     std::vector<sf::Texture> textures;
+
+    sf::Sprite crosshair;
+    std::string crosshairTexId;
+
     float minX, maxX;
     float minY, maxY;
 
@@ -44,8 +48,6 @@ public:
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
 };
-
-
 
 
 //#pragma once

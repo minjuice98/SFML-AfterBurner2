@@ -44,10 +44,9 @@ void Enemy::Reset()
 	enemy.setTexture(TEXTURE_MGR.Get("graphics/enemy.png"), true);
 	enemy.setOrigin({ enemy.getTexture()->getSize().x*0.5f,
 		enemy.getTexture()->getSize().y * 0.5f });
-	enemy.setPosition({ 100.f,200.f });
+	enemy.setPosition({ 100.f,300.f });
 	velocity = { 100.f,0.f };
 	enemy.setRotation(0.f);
-	
 }
 
 void Enemy::Update(float dt)
