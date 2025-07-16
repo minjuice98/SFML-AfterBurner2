@@ -42,17 +42,19 @@ void Enemy::Release()
 void Enemy::Reset()
 {
 	enemy.setTexture(TEXTURE_MGR.Get("graphics/enemy.png"), true);
-	enemy.setOrigin({ 0.f,0.f });
-	enemy.setPosition({ 0.f,0.f });
+	enemy.setOrigin({ enemy.getTexture()->getSize().x*0.5f,
+		enemy.getTexture()->getSize().y * 0.5f });
+	enemy.setPosition({ 100.f,200.f });
+	velocity = { 100.f,0.f };
 	enemy.setRotation(0.f);
 	
 }
 
 void Enemy::Update(float dt)
 {
-	//sf::Vector2f pos = GetPosition();
-	//pos += velocity * dt;
-	enemy.setPosition({200.f,300.f});
+	sf::Vector2f pos = enemy.getPosition();
+	pos += velocity * dt;
+	enemy.setPosition(pos);
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
