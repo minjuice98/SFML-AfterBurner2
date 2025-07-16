@@ -13,6 +13,7 @@ void Tomcat::Init()
     sortingLayer = SortingLayers::Foreground;
     sortingOrder = 1;
 
+    //tomcat
     textures.resize(15);
 
     std::vector<std::string> fileNames = {
@@ -28,9 +29,19 @@ void Tomcat::Init()
     }
 
     tomcat.setTexture(textures[7]);
-    tomcat.setOrigin({ 0.f, 0.f });
+    sf::FloatRect tomcatBounds = tomcat.getLocalBounds();
+    tomcat.setOrigin(tomcatBounds.width*0.5f, tomcatBounds.height*0.5f);
+    tomcat.setScale(4, 4);
 
     InitDirectionPaths();
+
+    //crosshair
+    crosshair.setTexture(TEXTURE_MGR.Get("graphics/crosshair.png"), true);
+    sf::FloatRect crosshairBounds = crosshair.getLocalBounds();
+    crosshair.setOrigin(crosshairBounds.width * 0.5f, crosshairBounds.height * 0.5f);
+    crosshair.setScale(0.05f, 0.05f);
+    crosshair.setPosition(tomcat.getPosition().x, tomcat.getPosition().y-70.f);
+
 }
 
 void Tomcat::InitDirectionPaths()
@@ -254,11 +265,15 @@ void Tomcat::Update(float dt)
 
     // 스프라이트 애니메이션 업데이트
     UpdateSpriteAnimation(dt);
+
+    //crosshair
+    crosshair.setPosition(tomcat.getPosition().x, tomcat.getPosition().y - 70.f);
 }
 
 void Tomcat::Draw(sf::RenderWindow& window)
 {
     window.draw(tomcat);
+    window.draw(crosshair);
 }
 
 

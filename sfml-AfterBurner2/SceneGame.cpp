@@ -13,6 +13,7 @@ void SceneGame::Init()
 	texIds.push_back("graphics/background.png");
 	texIds.push_back("graphics/enemy.png");
 	texIds.push_back("graphics/tomcat.png");
+	texIds.push_back("graphics/crosshair.png");
 	TEXTURE_MGR.Load(texIds);
 	
 	background = (Background*)AddGameObject(new Background("Background"));
