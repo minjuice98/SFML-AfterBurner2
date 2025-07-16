@@ -1,9 +1,11 @@
 #pragma once
 #include "Scene.h"
+class Background;
 class Tomcat;
 class SceneGame : public Scene
 {
 protected:
+	Background* background = nullptr;
 	Tomcat* tomcat = nullptr;
 public:
 	SceneGame(SceneIds id);
@@ -15,4 +17,3 @@ public:
 	void Update(float dt) override;
 	void Draw(sf::RenderWindow& window) override;
 };
-

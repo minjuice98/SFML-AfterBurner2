@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SceneGame.h"
+#include "Background.h"
 #include "Tomcat.h"
 
 SceneGame::SceneGame(SceneIds id) : Scene(SceneIds::Game)
@@ -8,8 +9,11 @@ SceneGame::SceneGame(SceneIds id) : Scene(SceneIds::Game)
 
 void SceneGame::Init()
 {
+	texIds.push_back("graphics/background.png");
 	texIds.push_back("graphics/tomcat.png");
 	TEXTURE_MGR.Load(texIds);
+	
+	background = (Background*)AddGameObject(new Background("Background"));
 	tomcat = (Tomcat*)AddGameObject(new Tomcat("Tomcat"));
 	
 	Scene::Init();
@@ -17,7 +21,12 @@ void SceneGame::Init()
 
 void SceneGame::Enter()
 {
+	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
+	worldView.setSize(windowSize);
+	worldView.setCenter({ 0.f,0.f });
+	
 	Scene::Enter();
+
 }
 
 void SceneGame::Exit()
@@ -28,6 +37,7 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
+	worldView.setCenter(tomcat->GetPosition());
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)

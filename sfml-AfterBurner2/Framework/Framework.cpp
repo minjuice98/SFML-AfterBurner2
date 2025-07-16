@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Framework.h"
 #include "Tomcat.h"
+#include "Background.h"
 #include <direct.h>  // _getcwd()
 
 void Framework::Init(int w, int h, const std::string& t)
@@ -22,6 +23,9 @@ void Framework::Init(int w, int h, const std::string& t)
 
 void Framework::Do()
 {
+	Background background;
+	background.Reset();
+	
 	Tomcat tomcat;
 	tomcat.Reset();
 
