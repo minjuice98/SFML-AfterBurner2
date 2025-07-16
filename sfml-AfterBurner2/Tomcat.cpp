@@ -210,6 +210,8 @@ void Tomcat::UpdateSpriteAnimation(float dt)
 
 void Tomcat::Update(float dt)
 {
+    std::cout << "Update 시작" << std::endl;
+
     const float moveSpeed = 200.f;
     int dx = 0;
     int dy = 0;
@@ -219,8 +221,12 @@ void Tomcat::Update(float dt)
     if (InputMgr::GetKey(sf::Keyboard::Up)) dy -= 1;
     if (InputMgr::GetKey(sf::Keyboard::Down)) dy += 1;
 
+    std::cout << "입력 처리 완료" << std::endl;
+
     // 이동 처리
     tomcat.move(dx * moveSpeed * dt, dy * moveSpeed * dt);
+
+    std::cout << "이동 처리 완료" << std::endl;
 
     // 경계 처리
     sf::Vector2f pos = tomcat.getPosition();
@@ -229,6 +235,8 @@ void Tomcat::Update(float dt)
     pos.x = Utils::Clamp(pos.x, minX, maxX);
     pos.y = Utils::Clamp(pos.y, minY, maxY);
     tomcat.setPosition(pos);
+
+    std::cout << "경계 처리 완료" << std::endl;
 
     // 경계 충돌 감지
     bool hitBoundary = (originalPos.x != pos.x || originalPos.y != pos.y);
@@ -263,11 +271,20 @@ void Tomcat::Update(float dt)
         UpdateSpriteDirection(dx, dy, dt);
     }
 
+
+    std::cout << "스프라이트 방향 업데이트 완료" << std::endl;
+
     // 스프라이트 애니메이션 업데이트
     UpdateSpriteAnimation(dt);
+    std::cout << "스프라이트 애니메이션 업데이트 완료" << std::endl;
+
 
     //crosshair
     crosshair.setPosition(tomcat.getPosition().x, tomcat.getPosition().y - 70.f);
+
+    std::cout << "crosshair 완료" << std::endl;
+
+    return;
 }
 
 void Tomcat::Draw(sf::RenderWindow& window)
@@ -275,6 +292,3 @@ void Tomcat::Draw(sf::RenderWindow& window)
     window.draw(tomcat);
     window.draw(crosshair);
 }
-
-
-

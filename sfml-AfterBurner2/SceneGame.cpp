@@ -17,7 +17,7 @@ void SceneGame::Init()
 	TEXTURE_MGR.Load(texIds);
 	
 	background = (Background*)AddGameObject(new Background("Background"));
-	enemy = (Enemy*)AddGameObject(new Enemy("Background"));
+	enemy = (Enemy*)AddGameObject(new Enemy("Enemy"));
 	tomcat = (Tomcat*)AddGameObject(new Tomcat("Tomcat"));
 	
 	Scene::Init();

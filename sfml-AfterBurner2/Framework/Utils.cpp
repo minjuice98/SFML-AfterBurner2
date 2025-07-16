@@ -6,3 +6,8 @@ float Utils::Clamp(float value, float min, float max)
     if (value < min) return min;
     else if (value > max) return max;
 }
+
+float Utils::Lerp(float a, float b, float t)
+{
+    return (1 - t) * a + t * b;
+}

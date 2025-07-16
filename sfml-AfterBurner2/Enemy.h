@@ -3,11 +3,22 @@
 class Enemy :  public GameObject
 {
 protected:
+	//enemy
 	sf::Sprite enemy;
 	std::string texId;
 	std::string name;
 
-	sf::Vector2f velocity; 
+	//crosshair
+	sf::Sprite crosshairEnemy;
+	std::string crosshairEnemyTexId;
+
+	//move
+	bool isLeft = true;
+	float accTime = 0.f;
+	float moveTime = 3.f;
+
+	sf::Vector2f startPos;
+	sf::Vector2f endPos;
 
 public:
 	Enemy(const std::string& name = "");
