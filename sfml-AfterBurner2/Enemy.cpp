@@ -1,0 +1,61 @@
+#include "stdafx.h"
+#include "Enemy.h"
+
+Enemy::Enemy(const std::string& name)
+{
+}
+
+void Enemy::SetPosition(const sf::Vector2f& pos)
+{
+	GameObject::SetPosition(pos);
+	enemy.setPosition(pos);
+}
+
+void Enemy::SetRotation(const float r)
+{
+	GameObject::SetRotation(r);
+	enemy.setRotation(r);
+}
+
+void Enemy::SetScale(const sf::Vector2f& s)
+{
+	GameObject::SetScale(s);
+	enemy.setScale(s);
+}
+
+void Enemy::SetOrigin(const sf::Vector2f& o)
+{
+	GameObject::SetOrigin(o);
+	enemy.setOrigin(o);
+}
+
+void Enemy::Init()
+{
+	sortingLayer = SortingLayers::Foreground;
+	sortingOrder = 1;
+}
+
+void Enemy::Release()
+{
+}
+
+void Enemy::Reset()
+{
+	enemy.setTexture(TEXTURE_MGR.Get("graphics/enemy.png"), true);
+	enemy.setOrigin({ 0.f,0.f });
+	enemy.setPosition({ 0.f,0.f });
+	enemy.setRotation(0.f);
+	
+}
+
+void Enemy::Update(float dt)
+{
+	//sf::Vector2f pos = GetPosition();
+	//pos += velocity * dt;
+	enemy.setPosition({200.f,300.f});
+}
+
+void Enemy::Draw(sf::RenderWindow& window)
+{
+	window.draw(enemy);
+}

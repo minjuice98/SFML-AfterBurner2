@@ -23,12 +23,6 @@ void Framework::Init(int w, int h, const std::string& t)
 
 void Framework::Do()
 {
-	Background background;
-	background.Reset();
-	
-	Tomcat tomcat;
-	tomcat.Reset();
-
 	while (window.isOpen())
 	{
 		//시간 정리

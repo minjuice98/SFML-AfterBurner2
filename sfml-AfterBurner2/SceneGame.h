@@ -1,11 +1,13 @@
 #pragma once
 #include "Scene.h"
 class Background;
+class Enemy;
 class Tomcat;
 class SceneGame : public Scene
 {
 protected:
 	Background* background = nullptr;
+	Enemy* enemy = nullptr;
 	Tomcat* tomcat = nullptr;
 public:
 	SceneGame(SceneIds id);
