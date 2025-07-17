@@ -54,7 +54,6 @@ void Enemy::Reset()
 
 void Enemy::Update(float dt)
 {
-	enemy.setPosition({0.f,FRAMEWORK.GetWindowSizeF().y*0.9f});
 	sf::Vector2f direction = { 1.f,-1.f };
 	float speed = 200.f;
 	position+= direction * speed * dt;

@@ -14,14 +14,14 @@ void SceneGame::Init()
 	texIds.push_back("graphics/enemy.png");
 	texIds.push_back("graphics/tomcat.png");
 	texIds.push_back("graphics/crosshair.png");
+	texIds.push_back("graphics/explosion.png");
 	texIds.push_back("graphics/vulcan.png");
 	TEXTURE_MGR.Load(texIds);
 	
-	//background = (Background*)AddGameObject(new Background("Background"));
+	background = (Background*)AddGameObject(new Background("Background"));
 	enemy = (Enemy*)AddGameObject(new Enemy("Enemy"));
 	tomcat = (Tomcat*)AddGameObject(new Tomcat("Tomcat"));
 	crosshair= (Tomcat*)AddGameObject(new Tomcat("crosshair"));
-
 
 	//enemy crosshair
 	enemyCrosshair.setTexture(TEXTURE_MGR.Get("graphics/crosshair.png"));
@@ -32,15 +32,20 @@ void SceneGame::Init()
 	vulcan.setTexture(TEXTURE_MGR.Get("graphics/vulcan.png"));
 	vulcan.setOrigin(tomcat->tomcat.getOrigin().x, tomcat->tomcat.getOrigin().y);
 	vulcan.setScale(0.6f,0.6f);
-	
+
+	//explosion
+	explosion.setTexture(TEXTURE_MGR.Get("graphics/explosion.png"));
+	explosion.setOrigin(enemy->enemy.getPosition().x, enemy->enemy.getPosition().y);
+	explosion.setScale(1, 1);
+
 	Scene::Init();
 }
 
 void SceneGame::Enter()
 {
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
-	worldView.setSize(windowSize); //창 크기에 맞추어 초기화
-	worldView.setCenter(tomcat->GetPosition());
+	//worldView.setSize(windowSize); //창 크기에 맞추어 초기화
+	//worldView.setCenter(tomcat->GetPosition());
 	
 	Scene::Enter();
 }
@@ -53,7 +58,7 @@ void SceneGame::Exit()
 void SceneGame::Update(float dt)
 {
 	Scene::Update(dt);
-	worldView.setCenter(tomcat->GetPosition());
+	//worldView.setCenter(tomcat->GetPosition());
 
 	//enemy crosshair 
 	sf::FloatRect enemyBound = enemy->enemy.getGlobalBounds();
@@ -62,7 +67,7 @@ void SceneGame::Update(float dt)
 	if (enemyBound.contains(tomcat->crosshair.getPosition()))
 	{
 		target = true;
-		std::cout << "충돌 발생!\n";
+		std::cout << "crosshair!";
 		enemyCrosshair.setPosition(enemy->enemy.getPosition());
 	}
 	else target = false;
@@ -74,16 +79,25 @@ void SceneGame::Update(float dt)
 	{   
 		//Left
 		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x - 50.f,
-			tomcat->tomcat.getPosition().y - 50.f });
+			tomcat->tomcat.getPosition().y - 20.f });
 		//Right
 		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x + 12.f,
-			tomcat->tomcat.getPosition().y - 50.f });
+			tomcat->tomcat.getPosition().y - 20.f });
 
 		fireTimer = 0.f;
 	}
+
 	for (auto& pos : vulcanPositions)
 	{
-		pos.y -= vulcanSpeed * dt;
+		pos.y -= vulcanSpeed * dt * 0.8;
+
+		//explosion
+		if (enemyBound.contains(pos))
+		{
+			target = true;
+			explosion.setPosition(enemy->enemy.getPosition());
+		}
+		else target = false;
 	}
 }
 
@@ -91,8 +105,9 @@ void SceneGame::Draw(sf::RenderWindow& window)
 {
 	//window.setView(worldView);
 	Scene::Draw(window);
-	//background->Draw(window);
+	background->Draw(window);
 	enemy->Draw(window);
+	if (target) window.draw(explosion);
 	for (auto pos : vulcanPositions)
 	{
 		vulcan.setPosition(pos);

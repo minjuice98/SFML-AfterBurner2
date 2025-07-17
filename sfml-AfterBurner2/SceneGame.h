@@ -20,7 +20,10 @@ protected:
 	std::vector<sf::Vector2f> vulcanPositions;
 	float vulcanSpeed = 500.f;
 	float fireTimer = 0.f;
-	float fireRate = 0.05f; 
+	float fireRate = 0.04f; 
+
+	//explosion
+	sf::Sprite explosion;
 
 public:
 	SceneGame(SceneIds id);
