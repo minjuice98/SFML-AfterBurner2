@@ -13,16 +13,11 @@ protected:
 	std::string crosshairEnemyTexId;
 
 	//move
-	bool isLeft = true;
-	float accTime = 0.f;
-	float moveTime = 3.f;
-
-	sf::Vector2f startPos;
-	sf::Vector2f endPos;
 
 public:
 	Enemy(const std::string& name = "");
 	~Enemy() override = default;
+
 
 	sf::Vector2f GetPosition() const { return position; }
 	void SetPosition(const sf::Vector2f& pos) override;
