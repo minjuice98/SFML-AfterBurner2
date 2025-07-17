@@ -3,21 +3,21 @@
 class Enemy :  public GameObject
 {
 protected:
-	//enemy
-	sf::Sprite enemy;
-	std::string texId;
-	std::string name;
-
 	//crosshair
 	sf::Sprite crosshairEnemy;
 	std::string crosshairEnemyTexId;
 
 	//move
+	sf::Vector2f position;
 
 public:
+	//enemy
+	sf::Sprite enemy;
+	std::string texId;
+	std::string name;
+
 	Enemy(const std::string& name = "");
 	~Enemy() override = default;
-
 
 	sf::Vector2f GetPosition() const { return position; }
 	void SetPosition(const sf::Vector2f& pos) override;

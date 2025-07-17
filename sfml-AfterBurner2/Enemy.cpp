@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Utils.h"
 #include "Enemy.h"
 
 Enemy::Enemy(const std::string& name):GameObject(name)
@@ -47,13 +48,17 @@ void Enemy::Reset()
 		enemy.getTexture()->getSize().y * 0.5f });
 	enemy.setScale(3, 3);
 	enemy.setRotation(0.f);
-
-	//move
-
+	position = { 0.f,FRAMEWORK.GetWindowSizeF().y };
+	enemy.setPosition(position);
 }
 
 void Enemy::Update(float dt)
 {
+	enemy.setPosition({0.f,FRAMEWORK.GetWindowSizeF().y*0.9f});
+	sf::Vector2f direction = { 1.f,-1.f };
+	float speed = 200.f;
+	position+= direction * speed * dt;
+	enemy.setPosition(position);
 }
 
 void Enemy::Draw(sf::RenderWindow& window)

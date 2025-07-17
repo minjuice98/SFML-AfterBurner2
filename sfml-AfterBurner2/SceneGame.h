@@ -9,6 +9,16 @@ protected:
 	Background* background = nullptr;
 	Enemy* enemy = nullptr;
 	Tomcat* tomcat = nullptr;
+	Tomcat* crosshair = nullptr;
+
+	//enemy crosshair
+	sf::Sprite enemyCrosshair; //생성 후 기본 위치 0,0
+	bool target = false;
+	
+	//vulcan
+	sf::Sprite vulcanL;
+	sf::Sprite vulcanR;
+	bool fire = false;
 public:
 	SceneGame(SceneIds id);
 	~SceneGame() override = default;

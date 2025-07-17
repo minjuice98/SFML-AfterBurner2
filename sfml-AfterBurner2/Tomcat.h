@@ -4,20 +4,19 @@
 class Tomcat : public GameObject
 {
 protected:
-    //tomcat
-    sf::Sprite tomcat;
-    std::string texId;
-
     float minX;
     float maxX;
     float minY;
     float maxY;
+public:
+    //tomcat
+    sf::Sprite tomcat;
+    std::string texId;
 
     //crosshair
     sf::Sprite crosshair;
     std::string crosshairTexId;
 
-public:
     Tomcat(const std::string& name);
     ~Tomcat() override = default;
 

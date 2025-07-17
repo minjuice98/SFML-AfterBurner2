@@ -21,11 +21,12 @@ void Tomcat::Release()
 
 void Tomcat::Reset()
 {
-    //tomcat
+	//tomcat
 	tomcat.setTexture(TEXTURE_MGR.Get("graphics/tomcat.png"), true);
 	sf::FloatRect tomcatBounds = tomcat.getLocalBounds();
 	tomcat.setOrigin(tomcatBounds.width * 0.5f, tomcatBounds.height * 0.5f);
 	tomcat.setScale(4, 4);
+	tomcat.setPosition({0.f, 0.f});
 
     minX = 380.f;
     maxX = 580.f;

@@ -43,8 +43,9 @@ void Background::Reset()
 	background.setTexture(TEXTURE_MGR.Get("graphics/background.png"), true);
 	background.setOrigin(background.getTexture()->getSize().x*0.5f
 			,background.getTexture()->getSize().y*0.5f);
-	background.setPosition({ 0.f,0.f });
 	background.setRotation(0.f);
+	background.setScale(1, 1);
+	background.setPosition({ 0.f,0.f });
 
 	minX = 380.f;
 	maxX = 580.f;
