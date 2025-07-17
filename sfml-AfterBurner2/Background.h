@@ -3,14 +3,17 @@
 class Background : public GameObject
 {
 protected:
-	sf::Sprite background;
+	sf::Sprite stage1first;
+	sf::RectangleShape sky;
+
 	std::string texId;
 	std::string name;
 
-	float minX;
-	float maxX;
-	float minY;
-	float maxY;
+	float scrollSpeed = 400.f;
+	float moveSpeed = 300.f;
+
+	float minX = 0.f;
+	float maxX = 0.f;
 public:
 	Background(const std::string& name="");
 	~Background() override=default;

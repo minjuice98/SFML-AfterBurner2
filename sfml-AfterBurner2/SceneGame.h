@@ -14,7 +14,7 @@ protected:
 	//enemy crosshair
 	sf::Sprite enemyCrosshair; //생성 후 기본 위치 0,0
 	bool target = false;
-	
+
 	//vulcan
 	sf::Sprite vulcan;
 	std::vector<sf::Vector2f> vulcanPositions;

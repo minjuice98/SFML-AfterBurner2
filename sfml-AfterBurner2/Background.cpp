@@ -8,24 +8,23 @@ Background::Background(const std::string& name) : GameObject(name)
 void Background::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
-	background.setPosition(pos);
+	stage1first.setPosition(pos);
 }
 void Background::SetRotation(const float r)
 {
 	GameObject::SetRotation(r);
-	background.setRotation(r);
+	stage1first.setRotation(r);
 }
 
 void Background::SetScale(const sf::Vector2f& s)
 {
 	GameObject::SetScale(s);
-	background.setScale(s);
-}
+	stage1first.setScale(s);}
 
 void Background::SetOrigin(const sf::Vector2f& o)
 {
 	GameObject::SetOrigin(o);
-	background.setOrigin(o);
+	stage1first.setOrigin(o);
 }
 
 void Background::Init()
@@ -40,46 +39,52 @@ void Background::Release()
 
 void Background::Reset()
 {
-	background.setTexture(TEXTURE_MGR.Get("graphics/background.png"), true);
-	background.setOrigin(background.getTexture()->getSize().x*0.5f
-			,background.getTexture()->getSize().y*0.5f);
-	background.setRotation(0.f);
-	background.setScale(1, 1);
-	background.setPosition({ 0.f,0.f });
+	//sea
+	stage1first.setTexture(TEXTURE_MGR.Get("graphics/stage1.png"), true);
+
+	stage1first.setOrigin(stage1first.getTexture()->getSize().x * 0.5f
+		, stage1first.getTexture()->getSize().y * 0.5f);
+	stage1first.setPosition({ 960.f*0.5f,0.f });
+
+	//sky
+	sky.setSize(sf::Vector2f({ 960.f, 300.f }));
+	sky.setFillColor(sf::Color(211, 229, 247, 255));
+	sky.setOrigin({0.f, 0.f});
+	sky.setPosition({ 0.f,0.f });
 
 	minX = 380.f;
 	maxX = 580.f;
-	minY = 236.f;
-	maxY = 436.f;
 }
 
 void Background::Update(float dt)
 {
-	const float moveSpeed = 200.f;
+	sf::Vector2f movement(0.f, scrollSpeed * dt);
+
 	if (InputMgr::GetKey(sf::Keyboard::Left)) 
 	{
-		background.move(moveSpeed * dt, 0.f);
+		movement.x+=moveSpeed * dt;
 	}
 	if (InputMgr::GetKey(sf::Keyboard::Right))
 	{
-		background.move(-moveSpeed * dt, 0.f);
+		movement.x -= moveSpeed * dt;
 	}
 	if (InputMgr::GetKey(sf::Keyboard::Up))
 	{
-		background.move(0.f, -moveSpeed * dt);
+		movement.y -= moveSpeed * dt;
 	}
 	if (InputMgr::GetKey(sf::Keyboard::Down))
 	{
-		background.move(0.f, moveSpeed * dt);
+		movement.y -= moveSpeed * dt;
 	}
+	stage1first.move(movement);
 
-	sf::Vector2f pos = background.getPosition();
+	sf::Vector2f pos = stage1first.getPosition();
 	pos.x = Utils::Clamp(pos.x, minX, maxX);
-	pos.y = Utils::Clamp(pos.y, minY, maxY);
-	background.setPosition(pos);
+	stage1first.setPosition(pos);
 }
 
 void Background::Draw(sf::RenderWindow& window)
 {
-	window.draw(background);
+	window.draw(stage1first);
+	window.draw(sky);
 }

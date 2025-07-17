@@ -10,7 +10,7 @@ SceneGame::SceneGame(SceneIds id) : Scene(SceneIds::Game)
 
 void SceneGame::Init()
 {
-	texIds.push_back("graphics/background.png");
+	texIds.push_back("graphics/stage1.png");
 	texIds.push_back("graphics/enemy.png");
 	texIds.push_back("graphics/tomcat.png");
 	texIds.push_back("graphics/crosshair.png");
