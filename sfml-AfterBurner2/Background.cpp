@@ -41,14 +41,15 @@ void Background::Release()
 void Background::Reset()
 {
 	background.setTexture(TEXTURE_MGR.Get("graphics/background.png"), true);
-	background.setOrigin({ 0.f,0.f });
+	background.setOrigin(background.getTexture()->getSize().x*0.5f
+			,background.getTexture()->getSize().y*0.5f);
 	background.setPosition({ 0.f,0.f });
 	background.setRotation(0.f);
 
-	minX =  0.f;
-	maxX = 140.f;
-	minY = -200.f;
-	maxY = 825.f;
+	minX = 380.f;
+	maxX = 580.f;
+	minY = 236.f;
+	maxY = 436.f;
 }
 
 void Background::Update(float dt)
