@@ -16,9 +16,12 @@ protected:
 	bool target = false;
 	
 	//vulcan
-	sf::Sprite vulcanL;
-	sf::Sprite vulcanR;
-	bool fire = false;
+	sf::Sprite vulcan;
+	std::vector<sf::Vector2f> vulcanPositions;
+	float vulcanSpeed = 500.f;
+	float fireTimer = 0.f;
+	float fireRate = 0.05f; 
+
 public:
 	SceneGame(SceneIds id);
 	~SceneGame() override = default;

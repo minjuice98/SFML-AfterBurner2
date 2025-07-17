@@ -17,7 +17,7 @@ void SceneGame::Init()
 	texIds.push_back("graphics/vulcan.png");
 	TEXTURE_MGR.Load(texIds);
 	
-	background = (Background*)AddGameObject(new Background("Background"));
+	//background = (Background*)AddGameObject(new Background("Background"));
 	enemy = (Enemy*)AddGameObject(new Enemy("Enemy"));
 	tomcat = (Tomcat*)AddGameObject(new Tomcat("Tomcat"));
 	crosshair= (Tomcat*)AddGameObject(new Tomcat("crosshair"));
@@ -29,13 +29,9 @@ void SceneGame::Init()
 	enemyCrosshair.setScale(0.1, 0.1);
 
 	//vulcan
-	vulcanL.setTexture(TEXTURE_MGR.Get("graphics/vulcan.png"));
-	vulcanL.setOrigin(tomcat->tomcat.getOrigin().x, tomcat->tomcat.getOrigin().y);
-	vulcanL.setScale(0.6f,0.6f);
-
-	vulcanR.setTexture(TEXTURE_MGR.Get("graphics/vulcan.png"));
-	vulcanR.setOrigin(tomcat->tomcat.getOrigin().x, tomcat->tomcat.getOrigin().y);
-	vulcanR.setScale(0.6f, 0.6f);
+	vulcan.setTexture(TEXTURE_MGR.Get("graphics/vulcan.png"));
+	vulcan.setOrigin(tomcat->tomcat.getOrigin().x, tomcat->tomcat.getOrigin().y);
+	vulcan.setScale(0.6f,0.6f);
 	
 	Scene::Init();
 }
@@ -72,27 +68,35 @@ void SceneGame::Update(float dt)
 	else target = false;
 
 	//vulcan
-	if (InputMgr::GetKey(sf::Keyboard::A))
-	{
-		fire = true;
-		vulcanL.setPosition(tomcat->tomcat.getPosition().x - 50.f,
-			tomcat->tomcat.getPosition().y-50.f);
-		vulcanR.setPosition(tomcat->tomcat.getPosition().x + 12.f,
-			tomcat->tomcat.getPosition().y - 50.f);
+	fireTimer += dt; //발사 후 경과시간
+	//
+	if (InputMgr::GetKey(sf::Keyboard::A)&&fireTimer>=fireRate)
+	{   
+		//Left
+		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x - 50.f,
+			tomcat->tomcat.getPosition().y - 50.f });
+		//Right
+		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x + 12.f,
+			tomcat->tomcat.getPosition().y - 50.f });
+
+		fireTimer = 0.f;
 	}
-	else fire = false;
+	for (auto& pos : vulcanPositions)
+	{
+		pos.y -= vulcanSpeed * dt;
+	}
 }
 
 void SceneGame::Draw(sf::RenderWindow& window)
 {
 	//window.setView(worldView);
 	Scene::Draw(window);
-	background->Draw(window);
+	//background->Draw(window);
 	enemy->Draw(window);
-	if (fire)
+	for (auto pos : vulcanPositions)
 	{
-		window.draw(vulcanL);
-		window.draw(vulcanR);
+		vulcan.setPosition(pos);
+		window.draw(vulcan);
 	}
 	if (target) window.draw(enemyCrosshair);
 	tomcat->Draw(window);
