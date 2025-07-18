@@ -60,9 +60,7 @@ void SceneGame::Update(float dt)
 	//worldView.setCenter(tomcat->GetPosition());
 
 	//enemy crosshair 
-	sf::FloatRect enemyBound = enemy->enemy.getGlobalBounds();
-	//bool sf::FloatRect::contains(float x, float y) const;
-	//bool sf::FloatRect::contains(const sf::Vector2f & point) const;
+	sf::FloatRect enemyBound = enemy->enemy.getGlobalBounds();	//bool sf::FloatRect::contains(float x, float y) const;
 	if (enemyBound.contains(tomcat->crosshair.getPosition()))
 	{
 		target = true;
@@ -73,9 +71,9 @@ void SceneGame::Update(float dt)
 
 	//vulcan
 	fireTimer += dt; //발사 후 경과시간
-	
-	if (InputMgr::GetKey(sf::Keyboard::A)&&fireTimer>=fireRate)
-	{   
+
+	if (InputMgr::GetKey(sf::Keyboard::A) && fireTimer >= fireRate)
+	{
 		//Left
 		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x - 50.f,
 			tomcat->tomcat.getPosition().y - 20.f });
@@ -86,12 +84,13 @@ void SceneGame::Update(float dt)
 		fireTimer = 0.f;
 	}
 
+	//inputmgr 조건 추가
 	for (auto& pos : vulcanPositions)
 	{
 		pos.y -= vulcanSpeed * dt * 0.8;
 
 		//explosion
-		if (enemyBound.contains(pos))
+		if (enemyBound.contains(pos)&&InputMgr::GetKey(sf::Keyboard::A))
 		{
 			target = true;
 			explosion.setPosition(enemy->enemy.getPosition());

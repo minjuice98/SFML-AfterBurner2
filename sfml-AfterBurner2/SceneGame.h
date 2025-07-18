@@ -27,7 +27,7 @@ protected:
 
 public:
 	SceneGame(SceneIds id);
-	~SceneGame() override = default;
+	~SceneGame() override = default;   
 
 	void Init() override;
 	void Enter() override;
