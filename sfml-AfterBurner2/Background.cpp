@@ -41,7 +41,6 @@ void Background::Reset()
 {
 	//sea
 	stage1first.setTexture(TEXTURE_MGR.Get("graphics/stage1.png"), true);
-
 	stage1first.setOrigin(stage1first.getTexture()->getSize().x * 0.5f
 		, stage1first.getTexture()->getSize().y * 0.5f);
 	stage1first.setPosition({ 960.f*0.5f,0.f });

@@ -49,15 +49,27 @@ void Enemy::Reset()
 	enemy.setScale(3, 3);
 	enemy.setRotation(0.f);
 	position = { 0.f,FRAMEWORK.GetWindowSizeF().y };
-	enemy.setPosition(position);
+	enemy.setPosition(position); 
 }
 
 void Enemy::Update(float dt)
 {
-	sf::Vector2f direction = { 1.f,-1.f };
-	float speed = 200.f;
-	position+= direction * speed * dt;
-	enemy.setPosition(position);
+	//wave
+	enemyTimer += dt;
+
+	if (enemyTimer >= enemyRate)
+	{//move
+		position = { 0.f,FRAMEWORK.GetWindowSizeF().y };
+		enemy.setPosition(position);
+		enemyTimer = 0;
+	}
+	else
+	{
+		sf::Vector2f direction = { 1.f,-1.f };
+		float speed = 200.f;
+		position += direction * speed * dt;
+		enemy.setPosition(position);
+	}
 }
 
 void Enemy::Draw(sf::RenderWindow& window)

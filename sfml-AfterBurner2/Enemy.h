@@ -10,6 +10,9 @@ protected:
 	//move
 	sf::Vector2f position;
 
+	//wave
+	float enemyTimer = 0.f; //누적시간 enemy용
+	float enemyRate = 4.f;
 public:
 	//enemy
 	sf::Sprite enemy;

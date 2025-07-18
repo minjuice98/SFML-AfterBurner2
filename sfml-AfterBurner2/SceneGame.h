@@ -18,8 +18,8 @@ protected:
 	//vulcan
 	sf::Sprite vulcan;
 	std::vector<sf::Vector2f> vulcanPositions;
-	float vulcanSpeed = 500.f;
-	float fireTimer = 0.f;
+	float vulcanSpeed = 500.f; 
+	float fireTimer = 0.f; //누적시간 슈팅용
 	float fireRate = 0.04f; 
 
 	//explosion

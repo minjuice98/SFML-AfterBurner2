@@ -46,7 +46,6 @@ void SceneGame::Enter()
 	sf::Vector2f windowSize = FRAMEWORK.GetWindowSizeF();
 	//worldView.setSize(windowSize); //창 크기에 맞추어 초기화
 	//worldView.setCenter(tomcat->GetPosition());
-	
 	Scene::Enter();
 }
 
@@ -74,7 +73,7 @@ void SceneGame::Update(float dt)
 
 	//vulcan
 	fireTimer += dt; //발사 후 경과시간
-	//
+	
 	if (InputMgr::GetKey(sf::Keyboard::A)&&fireTimer>=fireRate)
 	{   
 		//Left
