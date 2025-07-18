@@ -65,7 +65,8 @@ void SceneGame::Update(float dt)
 	{
 		target = true;
 		std::cout << "crosshair!";
-		enemyCrosshair.setPosition(enemy->enemy.getPosition());
+		enemyCrosshair.setPosition(enemy->enemy.getPosition().x-100.f,
+										enemy->enemy.getPosition().y-50.f);
 	}
 	else target = false;
 
