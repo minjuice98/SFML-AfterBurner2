@@ -51,10 +51,15 @@ void Background::Reset()
 	stage1second.setPosition({ 960.f * 0.5f, -backgroundHeight });
 
 	//sky
-	sky.setSize(sf::Vector2f({ 960.f, 300.f }));
-	sky.setFillColor(sf::Color(211, 229, 247, 255));
+	sky.setSize(sf::Vector2f({ 960.f, 400.f }));
+	sky.setFillColor(sf::Color(80, 188, 233, 255));
 	sky.setOrigin({0.f, 0.f});
 	sky.setPosition({ 0.f,0.f });
+
+	horizon.setSize(sf::Vector2f({ 960.f, 100.f }));
+	horizon.setFillColor(sf::Color(255, 255, 255, 120));
+	horizon.setOrigin({ 0.f, 0.f });
+	horizon.setPosition({ 0.f, 300.f });
 
 	minX = 380.f;
 	maxX = 580.f;
@@ -104,4 +109,5 @@ void Background::Draw(sf::RenderWindow& window)
 	window.draw(stage1first);
 	window.draw(stage1second);
 	window.draw(sky);
+	window.draw(horizon);
 }

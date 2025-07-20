@@ -6,6 +6,7 @@ protected:
 	sf::Sprite stage1first;
 	sf::Sprite stage1second;
 	sf::RectangleShape sky;
+	sf::RectangleShape horizon;
 
 	std::string texId;
 	std::string name;
