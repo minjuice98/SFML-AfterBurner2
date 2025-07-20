@@ -63,27 +63,24 @@ void SceneGame::Update(float dt)
 	//worldView.setCenter(tomcat->GetPosition());
 
 	//폭파 후 explosion 이미지 삭제
+	if (isExplosionVisible)
+	{
+		explosionTimer += dt;
+		if (explosionTimer >= 1.0f)
+		{
+			isExplosionVisible = false;
+		}
+	}
+	//respawn
 	if (isEnemyHit)
 	{
-		if (isExplosionVisible)
+		enemyRespawnTimer += dt;
+		if (enemyRespawnTimer >= enemyRespawnRate)
 		{
-			explosionTimer += dt;
-			if (explosionTimer >= 1.0f)
-			{
-				isExplosionVisible = false;
-			}
+			isEnemyHit = false;
+			enemyRespawnTimer = 0.f;
+			enemy->Reset(); // 적 리스폰
 		}
-		for (auto it = vulcanPositions.begin(); it != vulcanPositions.end();)
-		{
-			it->y -= vulcanSpeed * dt * 0.8f;
-			if (it->y < -50.f)
-			{
-				it = vulcanPositions.erase(it);
-			}
-			else ++it;
-		}
-
-		return;
 	}
 
 	//enemy crosshair 
@@ -147,7 +144,6 @@ void SceneGame::Update(float dt)
 
 	//vulcan
 	fireTimer += dt; //발사 후 경과시간
-
 	if (isPressingA && fireTimer >= fireRate)
 	{
 		//Left

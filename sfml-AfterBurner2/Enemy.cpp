@@ -50,6 +50,7 @@ void Enemy::Reset()
 	enemy.setRotation(0.f);
 	position = { 0.f,FRAMEWORK.GetWindowSizeF().y };
 	enemy.setPosition(position); 
+	enemyTimer = 0.f;
 }
 
 void Enemy::Update(float dt)

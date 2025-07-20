@@ -19,6 +19,8 @@ protected:
 
 	//enemy
 	bool isEnemyHit = false;
+	float enemyRespawnTimer = 0.f;
+	float enemyRespawnRate = 4.f;
 
 	//explosion
 	sf::Sprite explosion;
