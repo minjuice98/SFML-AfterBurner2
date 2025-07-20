@@ -13,7 +13,17 @@ protected:
 
 	//enemy crosshair
 	sf::Sprite enemyCrosshair; //생성 후 기본 위치 0,0
-	bool target = false;
+	bool isTarget = false; // 조준 중
+	bool isEnemyCrossHairVisible = false; //적 조준선 표시 여부
+	float enemyCrosshairTimer = 0.f;
+
+	//enemy
+	bool isEnemyHit = false;
+
+	//explosion
+	sf::Sprite explosion;
+	bool isExplosionVisible; //폭파 표시 여부
+	float explosionTimer = 0.f;
 
 	//vulcan
 	sf::Sprite vulcan;
@@ -21,9 +31,6 @@ protected:
 	float vulcanSpeed = 500.f; 
 	float fireTimer = 0.f; //누적시간 슈팅용
 	float fireRate = 0.04f; 
-
-	//explosion
-	sf::Sprite explosion;
 
 public:
 	SceneGame(SceneIds id);

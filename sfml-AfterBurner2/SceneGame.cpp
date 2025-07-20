@@ -25,7 +25,8 @@ void SceneGame::Init()
 
 	//enemy crosshair
 	enemyCrosshair.setTexture(TEXTURE_MGR.Get("graphics/crosshair.png"));
-	enemyCrosshair.setOrigin({ 0.f,0.f });
+	enemyCrosshair.setOrigin(enemyCrosshair.getLocalBounds().width * 0.5f,
+								enemyCrosshair.getLocalBounds().height * 0.5f);
 	enemyCrosshair.setScale(0.1, 0.1);
 
 	//vulcan
@@ -35,8 +36,10 @@ void SceneGame::Init()
 
 	//explosion
 	explosion.setTexture(TEXTURE_MGR.Get("graphics/explosion.png"));
-	explosion.setOrigin(enemy->enemy.getPosition().x, enemy->enemy.getPosition().y);
+	explosion.setOrigin(explosion.getLocalBounds().width * 0.5f,
+							explosion.getLocalBounds().height * 0.5f);
 	explosion.setScale(1, 1);
+	isExplosionVisible = false;
 
 	Scene::Init();
 }
@@ -59,21 +62,93 @@ void SceneGame::Update(float dt)
 	Scene::Update(dt);
 	//worldView.setCenter(tomcat->GetPosition());
 
-	//enemy crosshair 
-	sf::FloatRect enemyBound = enemy->enemy.getGlobalBounds();	//bool sf::FloatRect::contains(float x, float y) const;
-	if (enemyBound.contains(tomcat->crosshair.getPosition()))
+	//폭파 후 explosion 이미지 삭제
+	if (isEnemyHit)
 	{
-		target = true;
-		std::cout << "crosshair!";
-		enemyCrosshair.setPosition(enemy->enemy.getPosition().x-100.f,
-										enemy->enemy.getPosition().y-50.f);
+		if (isExplosionVisible)
+		{
+			explosionTimer += dt;
+			if (explosionTimer >= 1.0f)
+			{
+				isExplosionVisible = false;
+			}
+		}
+		for (auto it = vulcanPositions.begin(); it != vulcanPositions.end();)
+		{
+			it->y -= vulcanSpeed * dt * 0.8f;
+			if (it->y < -50.f)
+			{
+				it = vulcanPositions.erase(it);
+			}
+			else ++it;
+		}
+
+		return;
 	}
-	else target = false;
+
+	//enemy crosshair 
+	sf::FloatRect enemyBound = enemy->enemy.getGlobalBounds();	//bool sf::FloatRect::contains(float x, float y) const;	
+	bool containCrosshair = enemyBound.contains(tomcat->crosshair.getPosition());
+	bool isPressingA = InputMgr::GetKey(sf::Keyboard::A);
+	
+	//A를 누르지 않고 조준만 되었을 때
+	if (containCrosshair && !isPressingA)
+	{
+		if (!isTarget)
+		{
+			isTarget = true;
+			isEnemyCrossHairVisible = true;
+			enemyCrosshairTimer = 0.f;
+
+			sf::Vector2f enemyToCrosshair = enemy->enemy.getPosition();
+			enemyCrosshair.setPosition(enemyToCrosshair.x, enemyToCrosshair.y - 50.f);
+		}
+		if (isEnemyCrossHairVisible) //Timer
+		{
+			enemyCrosshairTimer += dt;
+			if (enemyCrosshairTimer >= 1.0f)
+			{
+				isEnemyCrossHairVisible = false;
+				isTarget = false;
+			}
+		}
+	}
+	//A를 누르고 있고 enemybound가 crosshair를 포함하는 경우
+	else if(!isEnemyHit&&isPressingA&&containCrosshair)
+	{
+		if (!isTarget)
+		{
+			isTarget = true;
+			isEnemyCrossHairVisible = true;
+			enemyCrosshairTimer = 0.f;
+
+			sf::Vector2f enemyToCrosshair = enemy->enemy.getPosition();
+			enemyCrosshair.setPosition(enemyToCrosshair.x, enemyToCrosshair.y - 50.f);
+		}
+		
+		if (isEnemyCrossHairVisible)
+		{
+			isEnemyCrossHairVisible = false;
+			isTarget = false;
+
+			//explosion
+			isEnemyHit = true;
+			isExplosionVisible = true;
+			explosionTimer = 0.f;
+			explosion.setPosition(enemy->enemy.getPosition());
+		}
+	}
+	else if (!containCrosshair)
+	{
+		isTarget = false;
+		isEnemyCrossHairVisible = false;
+		enemyCrosshairTimer = 0.f;
+	}
 
 	//vulcan
 	fireTimer += dt; //발사 후 경과시간
 
-	if (InputMgr::GetKey(sf::Keyboard::A) && fireTimer >= fireRate)
+	if (isPressingA && fireTimer >= fireRate)
 	{
 		//Left
 		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x - 50.f,
@@ -81,22 +156,16 @@ void SceneGame::Update(float dt)
 		//Right
 		vulcanPositions.push_back({ tomcat->tomcat.getPosition().x + 12.f,
 			tomcat->tomcat.getPosition().y - 20.f });
-
 		fireTimer = 0.f;
 	}
-
-	//inputmgr 조건 추가
-	for (auto& pos : vulcanPositions)
+	for (auto it = vulcanPositions.begin(); it != vulcanPositions.end();)
 	{
-		pos.y -= vulcanSpeed * dt * 0.8;
-
-		//explosion
-		if (enemyBound.contains(pos)&&InputMgr::GetKey(sf::Keyboard::A))
+		it->y -= vulcanSpeed * dt * 0.8f;
+		if (it->y < -50.f)
 		{
-			target = true;
-			explosion.setPosition(enemy->enemy.getPosition());
+			it = vulcanPositions.erase(it);
 		}
-		else target = false;
+		else ++it;
 	}
 }
 
@@ -105,13 +174,13 @@ void SceneGame::Draw(sf::RenderWindow& window)
 	//window.setView(worldView);
 	Scene::Draw(window);
 	background->Draw(window);
-	enemy->Draw(window);
-	if (target) window.draw(explosion);
-	for (auto pos : vulcanPositions)
+	if (!isEnemyHit) enemy->Draw(window);
+	if (isExplosionVisible)window.draw(explosion);
+	for (const auto& pos : vulcanPositions)
 	{
 		vulcan.setPosition(pos);
 		window.draw(vulcan);
 	}
-	if (target) window.draw(enemyCrosshair);
+	if (isEnemyCrossHairVisible) window.draw(enemyCrosshair);
 	tomcat->Draw(window);
 }
