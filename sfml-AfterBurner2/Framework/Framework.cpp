@@ -43,6 +43,7 @@ void Framework::Do()
 			InputMgr::UpdateEvent(event);
 		}
 		//메인루프에서 업데이트해야 할 목록
+		InputMgr::Update(deltaTime);
 		SCENE_MGR.Update(deltaTime);
 		//씬 검사하고, 그리기 
 		window.clear();

@@ -30,6 +30,7 @@ protected:
 	//vulcan
 	sf::Sprite vulcan;
 	std::vector<sf::Vector2f> vulcanPositions;
+	std::vector<float> vulcanStartPosY; //발사 당시 위치
 	float vulcanSpeed = 500.f; 
 	float fireTimer = 0.f; //누적시간 슈팅용
 	float fireRate = 0.04f; 

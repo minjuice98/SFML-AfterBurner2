@@ -69,7 +69,7 @@ void Enemy::Update(float dt)
 		sf::Vector2f direction = { 1.f,-1.f };
 		float speed = 200.f;
 		position += direction * speed * dt;
-		//position.x += sin(enemyTimer * waveFrequency) * waveAmplitude * dt;
+		position.x += sin(enemyTimer * waveFrequency) * waveAmplitude * dt;
 		enemy.setPosition(position);
 
 		//scale

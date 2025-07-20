@@ -8,9 +8,17 @@ protected:
     float maxX;
     float minY;
     float maxY;
+
+    //상하 리턴
+    float yClampTimer = 0.f; //clamp 끝에 닿은 누적시간
+    const float returnRate = 1.f; //복귀시간
+    bool yClamp = false;
+    bool isReturn = false;
+
 public:
     //tomcat
     sf::Sprite tomcat;
+    std::vector<sf::Texture> textures;
     std::string texId;
 
     //crosshair
