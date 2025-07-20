@@ -9,6 +9,7 @@ void Background::SetPosition(const sf::Vector2f& pos)
 {
 	GameObject::SetPosition(pos);
 	stage1first.setPosition(pos);
+	stage1second.setPosition(pos.x, pos.y - backgroundHeight);
 }
 void Background::SetRotation(const float r)
 {
@@ -41,9 +42,13 @@ void Background::Reset()
 {
 	//sea
 	stage1first.setTexture(TEXTURE_MGR.Get("graphics/stage1.png"), true);
-	stage1first.setOrigin(stage1first.getTexture()->getSize().x * 0.5f
-		, stage1first.getTexture()->getSize().y * 0.5f);
+	backgroundHeight = stage1first.getTexture()->getSize().y;
+	stage1first.setOrigin(stage1first.getTexture()->getSize().x * 0.5f, 0.f);
 	stage1first.setPosition({ 960.f*0.5f,0.f });
+
+	stage1second.setTexture(TEXTURE_MGR.Get("graphics/stage1.png"), true);
+	stage1second.setOrigin(stage1second.getTexture()->getSize().x * 0.5f, 0.f);
+	stage1second.setPosition({ 960.f * 0.5f, -backgroundHeight });
 
 	//sky
 	sky.setSize(sf::Vector2f({ 960.f, 300.f }));
@@ -76,14 +81,27 @@ void Background::Update(float dt)
 		movement.y -= moveSpeed * dt;
 	}
 	stage1first.move(movement);
+	stage1second.move(movement);
 
-	sf::Vector2f pos = stage1first.getPosition();
-	pos.x = Utils::Clamp(pos.x, minX, maxX);
-	stage1first.setPosition(pos);
+	//반복 스크롤
+	if (stage1first.getPosition().y >= backgroundHeight) {
+		stage1first.setPosition(stage1first.getPosition().x, stage1second.getPosition().y - backgroundHeight);
+	}
+	if (stage1second.getPosition().y >= backgroundHeight) {
+		stage1second.setPosition(stage1second.getPosition().x, stage1first.getPosition().y - backgroundHeight);
+	}
+
+	sf::Vector2f pos1 = stage1first.getPosition();
+	sf::Vector2f pos2 = stage1second.getPosition();
+	pos1.x = Utils::Clamp(pos1.x, minX, maxX);
+	pos2.x = Utils::Clamp(pos2.x, minX, maxX);
+	stage1first.setPosition(pos1);
+	stage1second.setPosition(pos2);
 }
 
 void Background::Draw(sf::RenderWindow& window)
 {
 	window.draw(stage1first);
+	window.draw(stage1second);
 	window.draw(sky);
 }

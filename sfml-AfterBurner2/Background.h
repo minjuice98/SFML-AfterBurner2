@@ -4,6 +4,7 @@ class Background : public GameObject
 {
 protected:
 	sf::Sprite stage1first;
+	sf::Sprite stage1second;
 	sf::RectangleShape sky;
 
 	std::string texId;
@@ -14,6 +15,7 @@ protected:
 
 	float minX = 0.f;
 	float maxX = 0.f;
+	float backgroundHeight;
 public:
 	Background(const std::string& name="");
 	~Background() override=default;

@@ -25,6 +25,8 @@ protected:
 	static std::vector<bool> upKeys;
 	static std::vector<bool> downKeys;
 
+	static std::unordered_map<Axis, AxisInfo> axisInfoMap;
+
 public:
 	static void Init();
 	static void Clear();

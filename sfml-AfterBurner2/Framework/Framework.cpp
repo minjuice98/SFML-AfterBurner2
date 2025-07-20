@@ -16,7 +16,6 @@ void Framework::Init(int w, int h, const std::string& t)
 
 	FONT_MGR.Load(fontIds);
 	TEXTURE_MGR.Load(texIds);
-
 	InputMgr::Init();
 	SCENE_MGR.Init();
 }
