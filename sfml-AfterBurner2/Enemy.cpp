@@ -46,7 +46,7 @@ void Enemy::Reset()
 	enemy.setTexture(TEXTURE_MGR.Get("graphics/enemy.png"), true);
 	enemy.setOrigin({ enemy.getTexture()->getSize().x*0.5f,
 		enemy.getTexture()->getSize().y * 0.5f });
-	enemy.setScale(3, 3);
+	enemy.setScale(4, 4);
 	enemy.setRotation(0.f);
 	position = { 0.f,FRAMEWORK.GetWindowSizeF().y };
 	enemy.setPosition(position); 
@@ -71,6 +71,14 @@ void Enemy::Update(float dt)
 		position += direction * speed * dt;
 		//position.x += sin(enemyTimer * waveFrequency) * waveAmplitude * dt;
 		enemy.setPosition(position);
+
+		//scale
+		const float maxY = FRAMEWORK.GetWindowSizeF().y;
+		const float minScale = 0.3f;
+		const float maxScale = 1.f;
+		float t = position.y / maxY; 
+		float scale = minScale + (maxScale - minScale) * t; 
+		enemy.setScale(scale * 4.f, scale * 4.f); 
 	}
 }
 
